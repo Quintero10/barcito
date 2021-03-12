@@ -79,7 +79,7 @@ const Search = () => {
                     options={optionsWithCustomStyling}
                     styles={ComboBoxCustomStyledExampleStyles}
                 />
-                
+             
                 </Stack.Item>
 
                                 
