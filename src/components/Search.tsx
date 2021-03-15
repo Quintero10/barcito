@@ -54,7 +54,7 @@ const Search = () => {
 
                 <Stack.Item align="center" >
                     
-                    <SearchBox  styles={searchBoxStyles} placeholder="Cheers!" onSearch={newValue => console.log('value is ' + newValue)} />
+                    <SearchBox name="searchBox" className="searchBox"  styles={searchBoxStyles} placeholder="Cheers!" onSearch={newValue => console.log('value is ' + newValue)} />
 
                 </Stack.Item>
 
@@ -91,7 +91,8 @@ const Search = () => {
 }
 
  function showMessageInConsole():void {
-     console.error("click with error");
+    var SearchBoxElement = document.querySelector("searchBox");
+     console.log(SearchBoxElement);
 
 }
 

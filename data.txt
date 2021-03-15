@@ -1,0 +1,14 @@
+https://www.c-sharpcorner.com/article/build-a-simple-todo-app-using-microsoft-fluent-ui-react/
+
+
+Context en React -t typescript
+https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/
+
+Cocktail API
+https://www.thecocktaildb.com/api.php
+
+
+Lista de vasos
+https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list
+
+
