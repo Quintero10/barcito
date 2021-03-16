@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SearchBox,ISearchBoxStyles  } from 'office-ui-fabric-react/lib/SearchBox';
 import { PrimaryButton, IContextualMenuProps, Stack, IStackTokens } from 'office-ui-fabric-react';
 import { ComboBox, DefaultPalette, IComboBoxOption, IStackItemStyles, SelectableOptionMenuItemType, Toggle } from '@fluentui/react';
 
-const Search = () => {
+const Search = (props:any) => {
+
+  //State
+  const [textContent, setTextContent] = useState(""); 
+
+  
+  const setTextContentInstate = (e: any) =>{  
+    console.log("Contenido de e" + e.target.value);
+    setTextContent(e.target.value);  
+}
+
+  const showMessageInConsole = ():void => {
+    
+  console.log(textContent);
+  setTextContent(""); 
+
+}
 
     // Example formatting
     const stackTokens: IStackTokens = { childrenGap: 20 };
@@ -16,15 +32,13 @@ const Search = () => {
         ['Comic Sans MS']: '"Comic Sans MS", "Comic Sans MS_MSFontService", fantasy',
         ['Calibri']: 'Calibri, Calibri_MSFontService, sans-serif',
       };
+
+      const glassMapping : {[glassName:string]: string} = {
+
+        
+      }
  
       const fonts = Object.keys(fontMapping);
-
-      const optionsForCustomRender: IComboBoxOption[] = [
-        { key: 'header1', text: 'Theme Fonts', itemType: SelectableOptionMenuItemType.Header },
-        ...fonts.map((fontName: string) => ({ key: fontName, text: fontName })),
-        { key: 'divider', text: '-', itemType: SelectableOptionMenuItemType.Divider },
-        { key: 'header2', text: 'Other Options', itemType: SelectableOptionMenuItemType.Header },
-      ];
 
       const optionsWithCustomStyling: IComboBoxOption[] = fonts.map((fontName: string) => ({
         key: fontName,
@@ -54,7 +68,7 @@ const Search = () => {
 
                 <Stack.Item align="center" >
                     
-                    <SearchBox name="searchBox" className="searchBox"  styles={searchBoxStyles} placeholder="Cheers!" onSearch={newValue => console.log('value is ' + newValue)} />
+                    <SearchBox name="searchBox" className="searchBox"  styles={searchBoxStyles} placeholder="Cheers!" onChange={setTextContentInstate} value={textContent}/>
 
                 </Stack.Item>
 
@@ -90,10 +104,6 @@ const Search = () => {
 
 }
 
- function showMessageInConsole():void {
-    var SearchBoxElement = document.querySelector("searchBox");
-     console.log(SearchBoxElement);
-
-}
+ 
 
 export default Search;
