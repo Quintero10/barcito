@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SearchBox,ISearchBoxStyles  } from 'office-ui-fabric-react/lib/SearchBox';
 import { PrimaryButton, IContextualMenuProps, Stack, IStackTokens } from 'office-ui-fabric-react';
-import { ComboBox, DefaultPalette, IComboBoxOption, IStackItemStyles, SelectableOptionMenuItemType, Toggle } from '@fluentui/react';
+import { ComboBox, DefaultPalette, Dropdown, DropdownMenuItemType, IComboBoxOption, IDropdownOption, IDropdownStyles, IStackItemStyles, SelectableOptionMenuItemType, Toggle } from '@fluentui/react';
+import { getGlasses } from './Utils/Utils';
 
 const Search = (props:any) => {
 
@@ -26,42 +27,26 @@ const Search = (props:any) => {
 
     const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: 200 } };
 
-      const fontMapping: { [fontName: string]: string } = {
-        ['Arial Black']: '"Arial Black", "Arial Black_MSFontService", sans-serif',
-        ['Times New Roman']: '"Times New Roman", "Times New Roman_MSFontService", serif',
-        ['Comic Sans MS']: '"Comic Sans MS", "Comic Sans MS_MSFontService", fantasy',
-        ['Calibri']: 'Calibri, Calibri_MSFontService, sans-serif',
-      };
+    const dropdownStyles: Partial<IDropdownStyles> = {
+      dropdown: { width: 300 },
+    };
+    
+    const options: IDropdownOption[] = [
+      { key: 'fruitsHeader', text: 'Fruits', itemType: DropdownMenuItemType.Header },
+      { key: 'apple', text: 'Apple' },
+      { key: 'banana', text: 'Banana' },
+      { key: 'orange', text: 'Orange', disabled: true },
+      { key: 'grape', text: 'Grape' },
+      { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
+      { key: 'vegetablesHeader', text: 'Vegetables', itemType: DropdownMenuItemType.Header },
+      { key: 'broccoli', text: 'Broccoli' },
+      { key: 'carrot', text: 'Carrot' },
+      { key: 'lettuce', text: 'Lettuce' },
+    ];
 
-      const glassMapping : {[glassName:string]: string} = {
-
-        
-      }
  
-      const fonts = Object.keys(fontMapping);
-
-      const optionsWithCustomStyling: IComboBoxOption[] = fonts.map((fontName: string) => ({
-        key: fontName,
-        text: fontName,
-        styles: {
-          optionText: {
-            fontFamily: fontMapping[fontName],
-          },
-        },
-      }));
-
-      const ComboBoxCustomStyledExampleStyles = {
-        container: {
-          maxWidth: '300px',
-        },
-        root: {
-          backgroundColor: '#b4a0ff',
-        },
-        input: {
-          backgroundColor: '#b4a0ff',
-        },
-      };
-
+     
+     
     return(
         <div>
             <Stack  tokens={stackTokens}>
@@ -87,12 +72,13 @@ const Search = (props:any) => {
 
                 <Stack.Item align="center">
 
-                <ComboBox
-                    defaultSelectedKey="Calibri"
-                    label="Custom styled ComboBox"
-                    options={optionsWithCustomStyling}
-                    styles={ComboBoxCustomStyledExampleStyles}
-                />
+               
+               <Dropdown
+                placeholder="Select an option"
+                label="Basic uncontrolled example"
+                options={options}
+                styles={dropdownStyles}
+              />
              
                 </Stack.Item>
 

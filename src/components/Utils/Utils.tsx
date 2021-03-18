@@ -1,15 +1,32 @@
 import axios from "axios";
 
 
-export function getGlasses ():string[] {
+export function getGlasses ():Array<String> {
+    let outputArray:Array<String> = [];
 
-const arrayString: string[] =[];
 
 axios.get("https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list").then(
      
-    response=>console.log(response)
+    (response)=>{
+
+        console.log(response.data.drinks);
+
+        let responseDataJson=response.data.drinks;
+
+       
+        for (let element in responseDataJson) {
+             
+            outputArray.push(responseDataJson[element].strGlass);
+        }
+        
+       
+       
+        }       
 )
 
-return arrayString;
+return outputArray;
+
+
+
 
 }
