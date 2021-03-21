@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { SearchBox,ISearchBoxStyles  } from 'office-ui-fabric-react/lib/SearchBox';
 import { PrimaryButton, IContextualMenuProps, Stack, IStackTokens } from 'office-ui-fabric-react';
 import { ComboBox, DefaultPalette, Dropdown, DropdownMenuItemType, IComboBoxOption, IDropdownOption, IDropdownStyles, IStackItemStyles, SelectableOptionMenuItemType, Toggle } from '@fluentui/react';
-import { callbackGetGlasses, getGlasses } from './Utils/Utils';
+import {  getGlassesOriginal } from './Utils/Utils';
+import axios from 'axios';
 
 const Search = (props:any) => {
 
@@ -33,22 +34,62 @@ const Search = (props:any) => {
     
     const options: IDropdownOption[] = [
       { key: 'glasses', text: 'Glasses', itemType: DropdownMenuItemType.Header },
-      { key: 'apple', text: 'Apple' },
+     
      
     ];
 
-    function poblateDropdown(){
-      debugger;
-       let glasses: Array<String>=callbackGetGlasses();
-       console.log("vasos desde Search" +glasses);
-       glasses.map(
-         (glass)=>{
-           options.push({key:glass.toLowerCase(),text:glass.toString()});
+    function getGlasses () {
+      let outputArray:string[] = [];
+  
+  
+  axios
+      .get("https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list")
+      .then((response)=>{
+  
+          
+  
+          let responseDataJson=response.data.drinks;
+  
+         
+          for (let element in responseDataJson) {
+               
+            options.push({key:responseDataJson[element].strGlass,text:responseDataJson[element].strGlass});
+            console.log(responseDataJson[element])
+             
+          }
+          
+    
+
+           
          }
-       )
-    };
-   poblateDropdown();
-     
+              
+  )
+  
+  
+  return outputArray;
+  
+  
+  
+  
+  }
+
+  function getGlassesAlternative () {
+
+    let outputArray= getGlassesOriginal();
+    //outputArray.;
+  
+   console.log(outputArray);
+
+
+}
+
+   
+   
+    useEffect(() => {
+      getGlassesAlternative()
+  
+    }, []);
+
      
     return(
         <div>
@@ -77,7 +118,7 @@ const Search = (props:any) => {
 
                
                <Dropdown
-                placeholder="Select an option"
+                placeholder="Select a glass"
                 label="Basic uncontrolled example"
                 options={options}
                 styles={dropdownStyles}
