@@ -29,7 +29,7 @@ const Search = (props:any) => {
     const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: 200 } };
 
     const dropdownStyles: Partial<IDropdownStyles> = {
-      dropdown: { width: 300 },
+      dropdown: { width: 200 },
     };
     
     const options: IDropdownOption[] = [
@@ -73,20 +73,15 @@ const Search = (props:any) => {
   
   }
 
-  function getGlassesAlternative () {
 
-    let outputArray= getGlassesOriginal();
-    //outputArray.;
-  
-   console.log(outputArray);
+  function showAlert(){
 
-
-}
-
+    alert("hola");
+  }
    
    
     useEffect(() => {
-      getGlassesAlternative()
+      getGlasses()
   
     }, []);
 
@@ -110,7 +105,7 @@ const Search = (props:any) => {
 
                 <Stack.Item align="center">
 
-                    <Toggle label="Allow freeform"  />
+                    <Toggle label="Allow freeform"  onClick={showAlert}/>
 
                 </Stack.Item>
 
