@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { SearchBox,ISearchBoxStyles  } from 'office-ui-fabric-react/lib/SearchBox';
-import { PrimaryButton, IContextualMenuProps, Stack, IStackTokens } from 'office-ui-fabric-react';
+import { PrimaryButton, IContextualMenuProps, Stack, IStackTokens, StackItem, initializeIcons } from 'office-ui-fabric-react';
 import { ComboBox, DefaultPalette, Dropdown, DropdownMenuItemType, IComboBoxOption, IDropdownOption, IDropdownStyles, IStackItemStyles, SelectableOptionMenuItemType, Toggle } from '@fluentui/react';
 import {  getGlassesOriginal } from './Utils/Utils';
 import axios from 'axios';
-
+initializeIcons();
 const Search = (props:any) => {
 
   //State
@@ -87,44 +87,27 @@ const Search = (props:any) => {
 
      
     return(
-        <div>
-            <Stack  tokens={stackTokens}>
-
-                <Stack.Item align="center" >
+    
+                 <div className="ms-Grid" dir="ltr">
+                              <div className="ms-Grid-row">
+                              <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg1"> <Toggle  onClick={showAlert}/></div>
+                             
+                                <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2"><SearchBox name="searchBox" className="searchBox"  styles={searchBoxStyles} placeholder="Cheers!" onChange={setTextContentInstate} value={textContent}/></div>
+                                <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2"> <Dropdown
+                            placeholder="Select a glass"
+                            options={options}
+                            styles={dropdownStyles}
+                        /></div>
+                                <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg10"> <PrimaryButton text="Search"   onClick={showMessageInConsole}/></div>
+                              </div>
+                        </div>
                     
-                    <SearchBox name="searchBox" className="searchBox"  styles={searchBoxStyles} placeholder="Cheers!" onChange={setTextContentInstate} value={textContent}/>
-
-                </Stack.Item>
-
-
-                <Stack.Item align="center" >
-
-                    <PrimaryButton text="Search"   onClick={showMessageInConsole}/>
-
-                </Stack.Item>
-
-                <Stack.Item align="center">
-
-                    <Toggle label="Allow freeform"  onClick={showAlert}/>
-
-                </Stack.Item>
-
-                <Stack.Item align="center">
-
-               
-               <Dropdown
-                placeholder="Select a glass"
-                label="Basic uncontrolled example"
-                options={options}
-                styles={dropdownStyles}
-              />
-             
-                </Stack.Item>
+                       
 
                                 
-                </Stack>
             
-        </div>
+            
+       
     );
 
 }
