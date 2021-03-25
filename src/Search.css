@@ -1,0 +1,38 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(4,250px);
+    gap: 1px;
+    grid-auto-rows: minmax(auto, auto);
+    margin-top: 20px;
+    padding-left: 95px;
+    
+  }
+/*repeat(3, 300px);*/
+.one {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    padding-left: 330px;
+    margin-top: 5px;
+  }
+
+.two{
+    grid-column: 2 / 4;
+    grid-row: 1;
+    padding-left: 125px;
+    
+}
+
+.three{
+    grid-column: 3 / 4;
+    grid-row: 1;
+    padding-left: 75px;
+    
+}
+
+.four{
+
+    grid-column: 4 / 4;
+    grid-row: 1;
+    padding-right: 100px;
+}
+

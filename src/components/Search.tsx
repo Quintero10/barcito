@@ -4,6 +4,8 @@ import { PrimaryButton, IContextualMenuProps, Stack, IStackTokens, StackItem, in
 import { ComboBox, DefaultPalette, Dropdown, DropdownMenuItemType, IComboBoxOption, IDropdownOption, IDropdownStyles, IStackItemStyles, SelectableOptionMenuItemType, Toggle } from '@fluentui/react';
 import {  getGlassesOriginal } from './Utils/Utils';
 import axios from 'axios';
+import '../Search.css';
+
 initializeIcons();
 const Search = (props:any) => {
 
@@ -88,19 +90,38 @@ const Search = (props:any) => {
      
     return(
     
-                 <div className="ms-Grid" dir="ltr">
-                              <div className="ms-Grid-row">
-                              <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg1"> <Toggle  onClick={showAlert}/></div>
-                             
-                                <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2"><SearchBox name="searchBox" className="searchBox"  styles={searchBoxStyles} placeholder="Cheers!" onChange={setTextContentInstate} value={textContent}/></div>
-                                <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2"> <Dropdown
-                            placeholder="Select a glass"
-                            options={options}
-                            styles={dropdownStyles}
-                        /></div>
-                                <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg10"> <PrimaryButton text="Search"   onClick={showMessageInConsole}/></div>
-                              </div>
-                        </div>
+                 <div className="wrapper">
+                   <div className="one"> <Toggle  onClick={showAlert}/></div>
+                            
+                                
+                                    <div className="two">
+                                      <SearchBox 
+                                      name="searchBox"
+                                      className="searchBox"  
+                                      styles={searchBoxStyles} 
+                                      placeholder="Cheers!" 
+                                      onChange={setTextContentInstate} 
+                                      value={textContent}
+                                      />
+                                      </div>
+                                      <div className="three">
+                                      <Dropdown
+                                    placeholder="Select a glass"
+                                    options={options}
+                                    styles={dropdownStyles}
+                                      />
+                                     
+                                      </div>
+                                      <div className="four">
+                                      <div className="primaryButton">
+                                        <PrimaryButton text="Search"   onClick={showMessageInConsole}/>
+                                        </div>
+
+                                      </div>
+                                      
+                                 
+
+                   </div>
                     
                        
 

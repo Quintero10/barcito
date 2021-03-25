@@ -18,3 +18,5 @@ https://www.youtube.com/watch?v=-bmdf1oATQo
 Grid layout
 https://fabricui.com/react/styles/layout
 
+Disable button by code
+https://stackoverflow.com/questions/62591164/how-can-i-dynamically-disable-a-fluent-ui-button
