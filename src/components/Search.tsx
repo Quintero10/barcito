@@ -11,6 +11,8 @@ const Search = (props:any) => {
 
   //State
   const [textContent, setTextContent] = useState(""); 
+  const [textBox,enableTextBox]=useState(false);
+  const [comboBox,enableComboBox]=useState(true);
 
   
   const setTextContentInstate = (e: any) =>{  
@@ -76,22 +78,28 @@ const Search = (props:any) => {
   }
 
 
-  function showAlert(){
+  function selectSearch(){
 
-    alert("hola");
+    if(!textBox){
+      enableTextBox(true);
+      enableComboBox(false);
+    } else {
+      enableTextBox(false);
+      enableComboBox(true);
+    };
   }
    
    
     useEffect(() => {
       getGlasses()
   
-    }, []);
+    });
 
      
     return(
     
                  <div className="wrapper">
-                   <div className="one"> <Toggle  onClick={showAlert}/></div>
+                   <div className="one"> <Toggle  onClick={selectSearch}/></div>
                             
                                 
                                     <div className="two">
@@ -102,6 +110,7 @@ const Search = (props:any) => {
                                       placeholder="Cheers!" 
                                       onChange={setTextContentInstate} 
                                       value={textContent}
+                                      disabled={textBox}
                                       />
                                       </div>
                                       <div className="three">
@@ -109,6 +118,7 @@ const Search = (props:any) => {
                                     placeholder="Select a glass"
                                     options={options}
                                     styles={dropdownStyles}
+                                    disabled={comboBox}
                                       />
                                      
                                       </div>
