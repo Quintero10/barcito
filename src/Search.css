@@ -13,6 +13,7 @@
     grid-row: 1;
     padding-left: 330px;
     margin-top: 5px;
+    width: min-content;
   }
 
 .two{
@@ -20,11 +21,13 @@
     grid-row: 1;
     padding-left: 125px;
     
+    
 }
 
 .three{
     grid-column: 3 / 4;
     grid-row: 1;
+   
     padding-left: 75px;
     
 }
