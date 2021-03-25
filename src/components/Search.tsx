@@ -11,8 +11,8 @@ const Search = (props:any) => {
 
   //State
   const [textContent, setTextContent] = useState(""); 
-  const [textBox,enableTextBox]=useState(false);
-  const [comboBox,enableComboBox]=useState(true);
+  const [textBoxDisabled,disableTextBox]=useState(false);
+  const [comboBoxDisabled,disableComboBox]=useState(true);
 
   
   const setTextContentInstate = (e: any) =>{  
@@ -44,7 +44,7 @@ const Search = (props:any) => {
 
     function getGlasses () {
       let outputArray:string[] = [];
-  
+      console.log("getGlasses");
   
   axios
       .get("https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list")
@@ -58,7 +58,7 @@ const Search = (props:any) => {
           for (let element in responseDataJson) {
                
             options.push({key:responseDataJson[element].strGlass,text:responseDataJson[element].strGlass});
-            console.log(responseDataJson[element])
+           
              
           }
           
@@ -80,18 +80,21 @@ const Search = (props:any) => {
 
   function selectSearch(){
 
-    if(!textBox){
-      enableTextBox(true);
-      enableComboBox(false);
+    debugger;
+    if(textBoxDisabled){
+      disableTextBox(false);
+      disableComboBox(true);
     } else {
-      enableTextBox(false);
-      enableComboBox(true);
+     
+      disableTextBox(true);
+      disableComboBox(false);
+      getGlasses()
     };
   }
    
    
     useEffect(() => {
-      getGlasses()
+      
   
     });
 
@@ -110,7 +113,7 @@ const Search = (props:any) => {
                                       placeholder="Cheers!" 
                                       onChange={setTextContentInstate} 
                                       value={textContent}
-                                      disabled={textBox}
+                                      disabled={textBoxDisabled}
                                       />
                                       </div>
                                       <div className="three">
@@ -118,7 +121,7 @@ const Search = (props:any) => {
                                     placeholder="Select a glass"
                                     options={options}
                                     styles={dropdownStyles}
-                                    disabled={comboBox}
+                                    disabled={comboBoxDisabled}
                                       />
                                      
                                       </div>
