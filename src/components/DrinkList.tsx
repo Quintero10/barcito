@@ -77,13 +77,13 @@ const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: num
 };
 
 export const ListGhostingExample: React.FunctionComponent = () => {
-  const items = useConst(() => createListItems(5000));
+  //const items:ICategoriasContextInterface[] = null;
 
   const drinkItems=getDrinksByGlass('Cocktail_Glass'); 
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
-        <List items={items} onRenderCell={onRenderCell} />
+        <List items={drinkItems} onRenderCell={onRenderCell} />
       </div>
     </FocusZone>
   );
