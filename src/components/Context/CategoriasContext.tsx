@@ -1,17 +1,24 @@
 import { nullRender } from '@fluentui/react';
 import react,{createContext,useState} from 'react';
 
+
+//interface
+export interface ICategoriasContextInterface {
+  name: string | undefined;
+  image: any | undefined;
+  thumbnail:''
+}
+
+const AppCtx = react.createContext<ICategoriasContextInterface | null>(null);
+
+
+
+
 //Crear el context
-//export const CategoriasContext= createContext();
+//export const CategoriasContext= createContext(null);
 
 //Provider es donde se encuentran las funciones y state
 
-const CategoriasProvider = (props:any):JSX.Element => {
 
-    const [hola,guardarHola]=useState('hola');
 
-    return <></>; //Esto vuela cuando desarrolle correctamente el Context
-    //Sería una "opción" de null para JSX.Element
-}
-
-export default CategoriasProvider;
+//export default CategoriasProvider;

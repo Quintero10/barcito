@@ -43,6 +43,7 @@ const Search = (props:any) => {
     ];
 
     function getGlasses () {
+      debugger;
       let outputArray:string[] = [];
       console.log("getGlasses");
   
@@ -80,21 +81,24 @@ const Search = (props:any) => {
 
   function selectSearch(){
 
-    debugger;
+ 
     if(textBoxDisabled){
+   
       disableTextBox(false);
       disableComboBox(true);
     } else {
      
       disableTextBox(true);
       disableComboBox(false);
-      getGlasses()
+    
     };
   }
    
    
     useEffect(() => {
-      
+
+      //TODO: No se debería llamar siempre a esta función. Solamente cuando se activa el sistmea de búsqueda (y además, cachearlo)
+      getGlasses()
   
     });
 

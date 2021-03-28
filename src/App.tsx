@@ -2,7 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Search from './components/Search';
-import CategoriasProvider from './components/Context/CategoriasContext';
+//import CategoriasProvider from './components/Context/CategoriasContext';
+import Title from './components/Title';
+import { ListGhostingExample } from './components/DrinkList';
+
 
 function App() {
   return (
@@ -10,6 +13,8 @@ function App() {
      
 
         <Search />
+        <ListGhostingExample />
+      
 
      
     </div>
