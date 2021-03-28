@@ -19,10 +19,11 @@ const classNames = mergeStyleSets({
     getFocusStyle(theme, { inset: -1 }),
     {
       minHeight: 54,
-      padding: 10,
+      padding: 1,
       boxSizing: 'border-box',
       borderBottom: `1px solid ${semanticColors.bodyDivider}`,
       display: 'flex',
+      backgroundColor:palette.white,
       selectors: {
         '&:hover': { background: palette.neutralLight },
       },
@@ -63,34 +64,44 @@ const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: num
     <div className={classNames.itemCell} data-is-focusable={true}>
       <Image
         className={classNames.itemImage}
-        src={isScrolling ? undefined : item?.thumbnail}
+        src={isScrolling ? undefined : item?.image}
         width={50}
         height={50}
         imageFit={ImageFit.cover}
       />
       <div className={classNames.itemContent}>
         <div className={classNames.itemName}>{item?.name}</div>
-        <div className={classNames.itemIndex}>{`Item ${index}`}</div>
+        <div className={classNames.itemIndex}>{`${item?.thumbnail}`}</div>
       </div>
     </div>
   );
 };
 
-export const ListGhostingExample: React.FunctionComponent = () => {
+export const ListGhostingExample: React.FunctionComponent =  () => {
   //const items:ICategoriasContextInterface[] = null;
+  let itemsDrinks:ICategoriasContextInterface[]=[];
+  const url =`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_Glass`;
+  axios.get(url).then(
+    (response)=>{
 
-  const drinkItems=getDrinksByGlass('Cocktail_Glass'); 
+      let responseDataJson=response.data.drinks;
+
+      for(let element in responseDataJson){
+        itemsDrinks.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Cocktail Glass'});
+      }
+    }
+  );
+  
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
-        <List items={drinkItems} onRenderCell={onRenderCell} />
+        <List items={itemsDrinks} onRenderCell={onRenderCell} />
       </div>
     </FocusZone>
   );
 };
-async function getDrinksByGlass(arg0: string) {
-    const url =`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${arg0}`;
-    const drinks= await axios.get(url);
-    console.log(drinks);
-}
+
+
+
+
 

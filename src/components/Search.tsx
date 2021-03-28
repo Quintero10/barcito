@@ -5,6 +5,7 @@ import { ComboBox, DefaultPalette, Dropdown, DropdownMenuItemType, IComboBoxOpti
 import {  getGlassesOriginal } from './Utils/Utils';
 import axios from 'axios';
 import '../Search.css';
+import { ICategoriasContextInterface } from './Context/CategoriasContext';
 
 initializeIcons();
 const Search = (props:any) => {
@@ -41,7 +42,7 @@ const Search = (props:any) => {
      
      
     ];
-
+   
     function getGlasses () {
       debugger;
       let outputArray:string[] = [];
@@ -99,6 +100,7 @@ const Search = (props:any) => {
 
       //TODO: No se debería llamar siempre a esta función. Solamente cuando se activa el sistmea de búsqueda (y además, cachearlo)
       getGlasses()
+     
   
     });
 

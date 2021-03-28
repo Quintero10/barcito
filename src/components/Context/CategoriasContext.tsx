@@ -6,7 +6,7 @@ import react,{createContext,useState} from 'react';
 export interface ICategoriasContextInterface {
   name: string | undefined;
   image: any | undefined;
-  thumbnail:''
+  thumbnail:any;
 }
 
 const AppCtx = react.createContext<ICategoriasContextInterface | null>(null);
