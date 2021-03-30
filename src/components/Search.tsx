@@ -44,7 +44,7 @@ const Search = (props:any) => {
     ];
    
     function getGlasses () {
-      debugger;
+     
       let outputArray:string[] = [];
       console.log("getGlasses");
   
@@ -52,31 +52,15 @@ const Search = (props:any) => {
       .get("https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list")
       .then((response)=>{
   
-          
-  
-          let responseDataJson=response.data.drinks;
-  
-         
-          for (let element in responseDataJson) {
-               
-            options.push({key:responseDataJson[element].strGlass,text:responseDataJson[element].strGlass});
-           
-             
+          let responseDataJson=response.data.drinks;       
+          for (let element in responseDataJson) {    
+            options.push({key:responseDataJson[element].strGlass,text:responseDataJson[element].strGlass});       
           }
-          
-    
-
-           
          }
               
   )
   
-  
   return outputArray;
-  
-  
-  
-  
   }
 
 

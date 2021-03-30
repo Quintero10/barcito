@@ -77,29 +77,54 @@ const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: num
   );
 };
 
-export const ListGhostingExample: React.FunctionComponent =  () => {
+interface IListGhosting{
+  items:ICategoriasContextInterface[]
+}
+
+
+export class ListGhostingExample extends React.Component<{},IListGhosting> {
   //const items:ICategoriasContextInterface[] = null;
-  let itemsDrinks:ICategoriasContextInterface[]=[];
-  const url =`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_Glass`;
-  axios.get(url).then(
-    (response)=>{
+  constructor(props: {}) {
+    super(props);
 
-      let responseDataJson=response.data.drinks;
-
-      for(let element in responseDataJson){
-        itemsDrinks.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Cocktail Glass'});
-      }
-    }
-  );
+    this.state = {
+      items: []
+    };
+    this.fillItemsDrinks();
+  }
   
+  
+ 
+  
+ fillItemsDrinks=()=>{
+    console.log("fillItemsDrinks");
+    this.state.items.push({name:'Fernet',image:'',thumbnail:'Cocktail Glass'})
+    const url =`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_Glass`;
+    axios.get(url).then(
+      (response)=>{
+  
+        let responseDataJson=response.data.drinks;
+  
+        for(let element in responseDataJson){
+         this.state.items.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Cocktail Glass'})
+         
+        }
+      }
+      
+      )
+    
+  }
+  
+
+  render(){
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
-        <List items={itemsDrinks} onRenderCell={onRenderCell} />
+        <List items={this.state.items} onRenderCell={onRenderCell} />
       </div>
     </FocusZone>
   );
-};
+}};
 
 
 
