@@ -59,6 +59,8 @@ const classNames = mergeStyleSets({
   },
 });
 
+
+
 const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
   return (
     <div className={classNames.itemCell} data-is-focusable={true}>
@@ -78,7 +80,9 @@ const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: num
 };
 
 interface IListGhosting{
-  items:ICategoriasContextInterface[]
+  items:ICategoriasContextInterface[],
+  listReady:boolean,
+  renderList:boolean
 }
 
 
@@ -88,39 +92,67 @@ export class ListGhostingExample extends React.Component<{},IListGhosting> {
     super(props);
 
     this.state = {
-      items: []
+      items: [],
+      renderList:false,
+      listReady:false
     };
+    console.log("Constructor")
     this.fillItemsDrinks();
-  }
+    
+  } 
   
+  componentDidMount(){
+   
+    console.log("componentDidMount")
+    this.fillItemsDrinks();
+    
+  }
+
+   renderList = ()=>{
+    if (this.state.listReady){
+        this.setState({renderList:true})
+    }
+  }
+
+ 
   
  
   
  fillItemsDrinks=()=>{
+
     console.log("fillItemsDrinks");
-    this.state.items.push({name:'Fernet',image:'',thumbnail:'Cocktail Glass'})
+   
     const url =`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_Glass`;
     axios.get(url).then(
       (response)=>{
-  
+
         let responseDataJson=response.data.drinks;
-  
-        for(let element in responseDataJson){
-         this.state.items.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Cocktail Glass'})
          
-        }
+      
+        this.setState(prevState => ({
+          items: prevState.items.map(
+          (obj,index) => (Object.assign(obj, {name:responseDataJson[index].strDrink,image:responseDataJson[index].strDrinkThumb,thumbnail:'Cocktail Glass'}))
+        )
+      }))
+      
+         
+        this.setState({items:[...this.state.items,...responseDataJson]})
+        
       }
       
       )
-    
+     
   }
   
 
   render(){
+   
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
-        <List items={this.state.items} onRenderCell={onRenderCell} />
+      {<List items={this.state.items} onRenderCell={onRenderCell}  />} 
+      
+      
       </div>
     </FocusZone>
   );
