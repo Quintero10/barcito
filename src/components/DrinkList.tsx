@@ -7,6 +7,8 @@ import { ITheme, mergeStyleSets, getTheme, getFocusStyle } from 'office-ui-fabri
 import { useConst } from '@uifabric/react-hooks';
 import { ICategoriasContextInterface } from './Context/CategoriasContext';
 import axios from 'axios';
+import { Modal } from '@fluentui/react';
+import { ModalBasicExample } from './Modal';
 
 const theme: ITheme = getTheme();
 const { palette, semanticColors, fonts } = theme;
@@ -61,35 +63,49 @@ const classNames = mergeStyleSets({
 
 
 
-const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
-  return (
-    <div className={classNames.itemCell} data-is-focusable={true}  onClick={()=>alert("holi")}>
-      <Image
-        className={classNames.itemImage}
-        src={isScrolling ? undefined : item?.image}
-        width={50}
-        height={50}
-        imageFit={ImageFit.cover}
-        
-      />
-      <div className={classNames.itemContent}>
-        <div className={classNames.itemName}>{item?.name}</div>
-        <div className={classNames.itemIndex}>{`${item?.thumbnail}`}</div>
-      </div>
-    </div>
-  );
-};
 
 interface IListGhosting{
   items:ICategoriasContextInterface[],
 
 }
 
+type sListGhosting={
+  renderModal:boolean;
+}
 
-export class ListGhostingExample extends React.Component<IListGhosting> {
 
-  
+export class ListGhostingExample extends React.Component<IListGhosting,sListGhosting> {
+
+  state:sListGhosting={
+    renderModal:false
+
+  }
   //const items:ICategoriasContextInterface[] = null;
+  constructor(props: IListGhosting) {
+    super(props);
+ 
+  } 
+
+   onRenderCell = (item: ICategoriasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
+    return (
+      <div className={classNames.itemCell} data-is-focusable={true} onClick={()=> {this.setState({renderModal:true})}}>
+        <Image
+          className={classNames.itemImage}
+          src={isScrolling ? undefined : item?.image}
+          width={50}
+          height={50}
+          imageFit={ImageFit.cover}
+          
+        />
+        <div className={classNames.itemContent}>
+          <div className={classNames.itemName}>{item?.name}</div>
+          <div className={classNames.itemIndex}>{`${item?.thumbnail}`}</div>
+        </div>
+      </div>
+    );
+  };
+  
+
   
   
   componentDidMount(){
@@ -103,7 +119,8 @@ export class ListGhostingExample extends React.Component<IListGhosting> {
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
-      {<List items={this.props.items} onRenderCell={onRenderCell}  />} 
+      {<List items={this.props.items} onRenderCell={this.onRenderCell}  />} 
+    { this.state.renderModal ?< ModalBasicExample />:''}
       
       
       </div>
