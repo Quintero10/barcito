@@ -8,6 +8,8 @@ import { ListGhostingExample } from '../src/components/DrinkList';
 import { PrimaryButton } from 'office-ui-fabric-react';
 import { ICategoriasContextInterface } from './components/Context/CategoriasContext';
 import axios from 'axios';
+import './components/DrinkList.css'
+import './components/Search.css'
 
 interface IApp{
   items:ICategoriasContextInterface[],
@@ -23,11 +25,11 @@ class App extends  React.Component<{},IApp> {
       items: [],
       renderList:false
     };
-    console.log("Constructor")
+    
     this.fillItemsDrinks();
     
   } 
-
+  //TODO: No debería llamarse dos veces
   componentDidMount(){
     this.fillItemsDrinks();
   }
@@ -64,11 +66,17 @@ class App extends  React.Component<{},IApp> {
   render() {return(
     <div className="App">
      
-       
-        <Search />
+        <div className="search">
+          <Search />
+        </div>
+
         {this.state.renderList?
-        <ListGhostingExample items={this.state.items} />:''
-      }
+
+        <div className="drinklist">
+          <ListGhostingExample items={this.state.items} />
+        </div>:''
+
+        }
         
         
 

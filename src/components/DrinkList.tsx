@@ -16,12 +16,14 @@ const classNames = mergeStyleSets({
   container: {
     overflow: 'auto',
     maxHeight: 500,
+    
   },
   itemCell: [
     getFocusStyle(theme, { inset: -1 }),
     {
       minHeight: 54,
       padding: 1,
+      
       boxSizing: 'border-box',
       borderBottom: `1px solid ${semanticColors.bodyDivider}`,
       display: 'flex',
@@ -120,7 +122,7 @@ export class ListGhostingExample extends React.Component<IListGhosting,sListGhos
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
       {<List items={this.props.items} onRenderCell={this.onRenderCell}  />} 
-    { this.state.renderModal ?< ModalBasicExample />:''}
+    { this.state.renderModal ?< ModalBasicExample /> :''}
       
       
       </div>
