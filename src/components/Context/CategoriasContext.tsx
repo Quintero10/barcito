@@ -9,16 +9,54 @@ export interface ICategoriasContextInterface {
   thumbnail:any;
 }
 
-const AppCtx = react.createContext<ICategoriasContextInterface | null>(null);
+export const CategoriasContext = react.createContext<ICategoriasContextInterface | null>(null);
 
 
+const CategoriasProvider= (props:ICategoriasContextInterface) => {
+
+  const[hola,guardarHola]=useState({name:'agustin',image:'none',thumbnail:'holis'});
+
+  
+
+  return (
+    <CategoriasContext.Provider value={hola}>
+        {props}
+    </CategoriasContext.Provider>
+  );
 
 
-//Crear el context
-//export const CategoriasContext= createContext(null);
-
-//Provider es donde se encuentran las funciones y state
+}
 
 
+/*
+fillItemsDrinks=()=>{
 
-//export default CategoriasProvider;
+    console.log("fillItemsDrinks");
+   
+    const url =`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_Glass`;
+    axios.get(url).then(
+      (response)=>{
+
+        let responseDataJson=response.data.drinks;
+         
+      
+        this.setState(prevState => ({
+          items: prevState.items.map(
+          (obj,index) => (Object.assign(obj, {name:responseDataJson[index].strDrink,image:responseDataJson[index].strDrinkThumb,thumbnail:'Cocktail Glass'}))
+        )
+      }))
+      
+         
+        this.setState({items:[...this.state.items,...responseDataJson]})
+
+        setTimeout(()=>{
+          this.setState({renderList:true})
+        },200)
+        
+      }
+      
+      )
+     
+  }
+
+*/

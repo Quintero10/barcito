@@ -47,7 +47,7 @@ const Search = (props:any) => {
      
       let outputArray:string[] = [];
       console.log("getGlasses");
-  
+      
   axios
       .get("https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list")
       .then((response)=>{
@@ -59,11 +59,11 @@ const Search = (props:any) => {
          }
               
   )
-  
+
   return outputArray;
   }
 
-
+ 
   function selectSearch(){
 
  
@@ -84,7 +84,7 @@ const Search = (props:any) => {
 
       //TODO: No se debería llamar siempre a esta función. Solamente cuando se activa el sistmea de búsqueda (y además, cachearlo)
       getGlasses()
-     
+      
   
     });
 
@@ -96,6 +96,7 @@ const Search = (props:any) => {
                             
                                 
                                     <div className="two">
+                                    {
                                       <SearchBox 
                                       name="searchBox"
                                       className="searchBox"  
@@ -105,6 +106,7 @@ const Search = (props:any) => {
                                       value={textContent}
                                       disabled={textBoxDisabled}
                                       />
+                                    }
                                       </div>
                                       <div className="three">
                                       <Dropdown
