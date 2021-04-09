@@ -6,7 +6,8 @@ import Search from './components/Search';
 import Title from './components/Title';
 import { ListGhostingExample } from '../src/components/DrinkList';
 import { PrimaryButton } from 'office-ui-fabric-react';
-import { CategoriasContext, ICategoriasContextInterface } from './components/Context/CategoriasContext';
+import { CategoriasContext,  ICategoriasContextInterface } from './components/Context/CategoriasContext';
+import CategoriasProvider from './components/Context/CategoriasContext';
 import axios from 'axios';
 import './components/DrinkList.css'
 import './components/Search.css'
@@ -26,7 +27,7 @@ const App =()=> {
   
   return(
 
-
+<CategoriasProvider>
     <div className="App">
      
         <div className="search">
@@ -41,11 +42,9 @@ const App =()=> {
         </div>:''
           */
         }
-        
-        
-
      
     </div>
+    </CategoriasProvider>
   );
 }
 

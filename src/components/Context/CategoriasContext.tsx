@@ -27,6 +27,7 @@ const CategoriasProvider= (props:ICategoriasContextInterface) => {
 
 }
 
+export default CategoriasProvider;
 
 /*
 fillItemsDrinks=()=>{

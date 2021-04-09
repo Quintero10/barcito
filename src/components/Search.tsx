@@ -8,13 +8,13 @@ import '../Search.css';
 import { ICategoriasContextInterface } from './Context/CategoriasContext';
 
 initializeIcons();
-const Search = (props:any) => {
+const Search = (props:ICategoriasContextInterface) => {
 
   //State
   const [textContent, setTextContent] = useState(""); 
   const [textBoxDisabled,disableTextBox]=useState(false);
   const [comboBoxDisabled,disableComboBox]=useState(true);
-
+  const [name,useName]=useState({props});
   
   const setTextContentInstate = (e: any) =>{  
     console.log("Contenido de e" + e.target.value);
