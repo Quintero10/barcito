@@ -5,7 +5,7 @@ import { ComboBox, DefaultPalette, Dropdown, DropdownMenuItemType, IComboBoxOpti
 import {  getGlassesOriginal } from './Utils/Utils';
 import axios from 'axios';
 import '../Search.css';
-import { ICategoriasContextInterface } from './Context/CategoriasContext';
+import { CategoriasContext, ICategoriasContextInterface } from './Context/CategoriasContext';
 
 initializeIcons();
 const Search = (props:ICategoriasContextInterface) => {
@@ -14,7 +14,7 @@ const Search = (props:ICategoriasContextInterface) => {
   const [textContent, setTextContent] = useState(""); 
   const [textBoxDisabled,disableTextBox]=useState(false);
   const [comboBoxDisabled,disableComboBox]=useState(true);
-  const [name,useName]=useState({props});
+  const CategoriasContextInSearch=React.useContext(CategoriasContext);
   
   const setTextContentInstate = (e: any) =>{  
     console.log("Contenido de e" + e.target.value);
@@ -23,7 +23,7 @@ const Search = (props:ICategoriasContextInterface) => {
 
   const showMessageInConsole = ():void => {
     
-  console.log(textContent);
+  console.log(props);
   setTextContent(""); 
 
 }
@@ -43,25 +43,7 @@ const Search = (props:ICategoriasContextInterface) => {
      
     ];
    
-    function getGlasses () {
-     
-      let outputArray:string[] = [];
-      console.log("getGlasses");
-      
-  axios
-      .get("https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list")
-      .then((response)=>{
-  
-          let responseDataJson=response.data.drinks;       
-          for (let element in responseDataJson) {    
-            options.push({key:responseDataJson[element].strGlass,text:responseDataJson[element].strGlass});       
-          }
-         }
-              
-  )
-
-  return outputArray;
-  }
+   
 
  
   function selectSearch(){
@@ -83,7 +65,7 @@ const Search = (props:ICategoriasContextInterface) => {
     useEffect(() => {
 
       //TODO: No se debería llamar siempre a esta función. Solamente cuando se activa el sistmea de búsqueda (y además, cachearlo)
-      getGlasses()
+     
       
   
     });

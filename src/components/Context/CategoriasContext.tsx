@@ -1,63 +1,55 @@
 import { nullRender } from '@fluentui/react';
-import react,{createContext,useState} from 'react';
+import axios from 'axios';
+import react,{createContext,useEffect,useState} from 'react';
 
 
 //interface
 export interface ICategoriasContextInterface {
   name: string | undefined;
-  image: any | undefined;
-  thumbnail:any;
+  id:string | undefined;
 }
 
 export const CategoriasContext = react.createContext<ICategoriasContextInterface | null>(null);
 
+const categories: ICategoriasContextInterface[] | null= null;
 
-const CategoriasProvider= (props:ICategoriasContextInterface) => {
+const getGlassesCategory= async()=>{
+     
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
-  const[hola,guardarHola]=useState({name:'agustin',image:'none',thumbnail:'holis'});
+  const categorias = await axios.get(url);
 
   
 
+}
+
+export const CategoriasProvider:React.FC= ({children}) => {
+
+   // crear el state del Context
+   
+  
   return (
-    <CategoriasContext.Provider value={hola}>
-        {props}
+    <CategoriasContext.Provider value={categories}>
+        {children}
     </CategoriasContext.Provider>
   );
 
 
+ 
+
+  
+
 }
+
+
 
 export default CategoriasProvider;
 
-/*
-fillItemsDrinks=()=>{
-
-    console.log("fillItemsDrinks");
-   
-    const url =`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_Glass`;
-    axios.get(url).then(
-      (response)=>{
-
-        let responseDataJson=response.data.drinks;
-         
-      
-        this.setState(prevState => ({
-          items: prevState.items.map(
-          (obj,index) => (Object.assign(obj, {name:responseDataJson[index].strDrink,image:responseDataJson[index].strDrinkThumb,thumbnail:'Cocktail Glass'}))
-        )
-      }))
-      
-         
-        this.setState({items:[...this.state.items,...responseDataJson]})
-
-        setTimeout(()=>{
-          this.setState({renderList:true})
-        },200)
-        
-      }
-      
-      )
-     
-  }
-
-*/
+// categories.push({key:responseDataJson[element].strGlass,text:responseDataJson[element].strGlass});
+/**
+ * 
+          let responseDataJson=response.data.drinks;       
+          for (let element in responseDataJson) {    
+                  
+          }
+ */

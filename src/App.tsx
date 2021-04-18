@@ -12,39 +12,27 @@ import axios from 'axios';
 import './components/DrinkList.css'
 import './components/Search.css'
 
-interface IApp{
-  items:ICategoriasContextInterface[],
-  renderList:boolean
-  
-}
+
+
+
 
 const App =()=> {
  
-  const hola=useContext(CategoriasContext);
-  console.log(hola);  
+  const contextValues=useContext(CategoriasContext);
  
-
-  
   return(
 
-<CategoriasProvider>
+  <CategoriasProvider >
     <div className="App">
      
         <div className="search">
-          <Search />
+          {/*<Search name={contextValues?.name}  />*/}
         </div>
 
-        {
-        
-        /*
-        <div className="drinklist">
-          <ListGhostingExample items={null} />
-        </div>:''
-          */
-        }
-     
+          {/*Aquí iban DrinkList y el Modal en caso de corresponder*/}
     </div>
     </CategoriasProvider>
+   
   );
 }
 
