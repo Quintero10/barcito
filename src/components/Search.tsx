@@ -5,26 +5,31 @@ import { ComboBox, DefaultPalette, Dropdown, DropdownMenuItemType, IComboBoxOpti
 import {  getGlassesOriginal } from './Utils/Utils';
 import axios from 'axios';
 import '../Search.css';
-import { CategoriasContext, ICategoriasContextInterface } from './Context/CategoriasContext';
+import { AppCtx} from './Context/CategoriasContext';
+import { TextContext } from '../App';
+
 
 initializeIcons();
-const Search = (props:ICategoriasContextInterface) => {
 
+
+const Search = () => {
+  const {update } = React.useContext(TextContext);
   //State
-  const [textContent, setTextContent] = useState(""); 
+   const[textContent,setTextContent]=useState('');
   const [textBoxDisabled,disableTextBox]=useState(false);
   const [comboBoxDisabled,disableComboBox]=useState(true);
-  const CategoriasContextInSearch=React.useContext(CategoriasContext);
+  const CategoriasContextInSearch=React.useContext(AppCtx)
   
   const setTextContentInstate = (e: any) =>{  
-    console.log("Contenido de e" + e.target.value);
-    setTextContent(e.target.value);  
+    if(e != undefined){
+    setTextContent(e.target.value);
+  }
 }
 
   const showMessageInConsole = ():void => {
     
-  console.log(props);
-  setTextContent(""); 
+  
+ 
 
 }
 
@@ -39,10 +44,11 @@ const Search = (props:ICategoriasContextInterface) => {
     
     const options: IDropdownOption[] = [
       { key: 'glasses', text: 'Glasses', itemType: DropdownMenuItemType.Header },
-     
+      
      
     ];
    
+
    
 
  
@@ -60,10 +66,18 @@ const Search = (props:ICategoriasContextInterface) => {
     
     };
   }
+  function fillCategories(){
+
+    CategoriasContextInSearch?.map(
+      (element,value)=>{
+        options.push({key:element.id!,text:element.strGlass!})
+      }
+    )
+  }
    
    
     useEffect(() => {
-
+      fillCategories()
       //TODO: No se debería llamar siempre a esta función. Solamente cuando se activa el sistmea de búsqueda (y además, cachearlo)
      
       
@@ -85,7 +99,7 @@ const Search = (props:ICategoriasContextInterface) => {
                                       styles={searchBoxStyles} 
                                       placeholder="Cheers!" 
                                       onChange={setTextContentInstate} 
-                                      value={textContent}
+                                      
                                       disabled={textBoxDisabled}
                                       />
                                     }
@@ -101,7 +115,7 @@ const Search = (props:ICategoriasContextInterface) => {
                                       </div>
                                       <div className="four">
                                       <div className="primaryButton">
-                                        <PrimaryButton text="Search"   onClick={showMessageInConsole}/>
+                                        <PrimaryButton text="Search"   onClick={()=>update(textContent)}/>
                                         </div>
 
                                       </div>

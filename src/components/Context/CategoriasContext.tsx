@@ -1,55 +1,45 @@
-import { nullRender } from '@fluentui/react';
-import axios from 'axios';
-import react,{createContext,useEffect,useState} from 'react';
+import axios from "axios";
+import * as React from "react";
 
 
-//interface
-export interface ICategoriasContextInterface {
-  name: string | undefined;
+export interface AppContextInterface {
+  strGlass:string | undefined;
   id:string | undefined;
-}
-
-export const CategoriasContext = react.createContext<ICategoriasContextInterface | null>(null);
-
-const categories: ICategoriasContextInterface[] | null= null;
-
-const getGlassesCategory= async()=>{
-     
-  const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-
-  const categorias = await axios.get(url);
-
-  
 
 }
 
-export const CategoriasProvider:React.FC= ({children}) => {
+export interface ICategoriasContextInterface {
+  image:string | undefined;
+  name:string | undefined;
+  thumbnail:string | undefined;
+}
 
-   // crear el state del Context
-   
-  
-  return (
-    <CategoriasContext.Provider value={categories}>
-        {children}
-    </CategoriasContext.Provider>
-  );
+ export const AppCtx = React.createContext<AppContextInterface[] | null>(null);
 
 
  
+  export const CategoriasProvider:React.FC= ({children}) => {
+
+    //const sampleAppContext: AppContextInterface[] | null =null;
+    const [categorias, guardarCategorias] = React.useState<AppContextInterface[]>([]);
+ const getGlassesCategory= async() =>{
+  
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list';
+
+  const categorias = await axios.get(url);
+
+  console.log(categorias);
+  let responseDataJson=categorias.data.drinks;
+
+  guardarCategorias(responseDataJson);
+}
+  React.useEffect(()=>{getGlassesCategory()},[])
+
+    return(
+      <AppCtx.Provider value={categorias}>{children}</AppCtx.Provider>
+    );
+    
+  }
+   
 
   
-
-}
-
-
-
-export default CategoriasProvider;
-
-// categories.push({key:responseDataJson[element].strGlass,text:responseDataJson[element].strGlass});
-/**
- * 
-          let responseDataJson=response.data.drinks;       
-          for (let element in responseDataJson) {    
-                  
-          }
- */

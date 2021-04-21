@@ -9,6 +9,7 @@ import { ICategoriasContextInterface } from './Context/CategoriasContext';
 import axios from 'axios';
 import { Modal } from '@fluentui/react';
 import { ModalBasicExample } from './Modal';
+import { TextContext } from '../App';
 
 const theme: ITheme = getTheme();
 const { palette, semanticColors, fonts } = theme;
@@ -76,21 +77,16 @@ type sListGhosting={
 }
 
 
-export class ListGhostingExample extends React.Component<IListGhosting,sListGhosting> {
 
-  state:sListGhosting={
-    renderModal:false
+export const ListGhostingExample =()=> {
 
-  }
-  //const items:ICategoriasContextInterface[] = null;
-  constructor(props: IListGhosting) {
-    super(props);
- 
-  } 
+  
+  const {state } = React.useContext(TextContext);
+  console.log(state);
 
-   onRenderCell = (item: ICategoriasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
+  const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
     return (
-      <div className={classNames.itemCell} data-is-focusable={true} onClick={()=> {this.setState({renderModal:true})}}>
+      <div className={classNames.itemCell} data-is-focusable={true}>
         <Image
           className={classNames.itemImage}
           src={isScrolling ? undefined : item?.image}
@@ -110,25 +106,19 @@ export class ListGhostingExample extends React.Component<IListGhosting,sListGhos
 
   
   
-  componentDidMount(){
-   
-    console.log("componentDidMount")
-
-  }  
-
-  render(){
+  
    
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
-      {<List items={this.props.items} onRenderCell={this.onRenderCell}  />} 
-    { this.state.renderModal ?< ModalBasicExample /> :''}
+      {state?<List items={[{name:state,image:state,thumbnail:state}]} onRenderCell={onRenderCell}   />:''} 
+    
       
       
       </div>
     </FocusZone>
   );
-}};
+};
 
 
 

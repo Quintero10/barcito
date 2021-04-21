@@ -6,33 +6,38 @@ import Search from './components/Search';
 import Title from './components/Title';
 import { ListGhostingExample } from '../src/components/DrinkList';
 import { PrimaryButton } from 'office-ui-fabric-react';
-import { CategoriasContext,  ICategoriasContextInterface } from './components/Context/CategoriasContext';
-import CategoriasProvider from './components/Context/CategoriasContext';
+import { AppCtx,  CategoriasProvider } from './components/Context/CategoriasContext';
+
 import axios from 'axios';
 import './components/DrinkList.css'
 import './components/Search.css'
+import { createCtx } from './components/Context/ListaContext';
 
 
 
-
+const [ctx, TextProvider] = createCtx("");
+export const TextContext = ctx;
 
 const App =()=> {
  
-  const contextValues=useContext(CategoriasContext);
+ 
  
   return(
 
   <CategoriasProvider >
+    <TextProvider>
     <div className="App">
      
         <div className="search">
-          {/*<Search name={contextValues?.name}  />*/}
+          <Search   />
         </div>
-
-          {/*Aquí iban DrinkList y el Modal en caso de corresponder*/}
+        <ListGhostingExample />
+         
     </div>
+    </TextProvider>
     </CategoriasProvider>
-   
+     /*Aquí iban DrinkList y el Modal en caso de corresponder*/
+    
   );
 }
 
