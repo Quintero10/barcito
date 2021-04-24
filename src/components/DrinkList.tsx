@@ -5,11 +5,12 @@ import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { ITheme, mergeStyleSets, getTheme, getFocusStyle } from 'office-ui-fabric-react/lib/Styling';
 //import { createListItems, IExampleItem } from '@uifabric/example-data';
 import { useConst } from '@uifabric/react-hooks';
-import { ICategoriasContextInterface } from './Context/CategoriasContext';
+
 import axios from 'axios';
 import { Modal } from '@fluentui/react';
 import { ModalBasicExample } from './Modal';
-import { TextContext } from '../App';
+
+import {  IListasContextInterface, ListaContext } from './Context/ListaContext';
 
 const theme: ITheme = getTheme();
 const { palette, semanticColors, fonts } = theme;
@@ -64,27 +65,11 @@ const classNames = mergeStyleSets({
   },
 });
 
-
-
-
-interface IListGhosting{
-  items:ICategoriasContextInterface[],
-
-}
-
-type sListGhosting={
-  renderModal:boolean;
-}
-
-
-
 export const ListGhostingExample =()=> {
 
-  
-  const {state } = React.useContext(TextContext);
-  console.log(state);
-
-  const onRenderCell = (item: ICategoriasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
+  const {elementosLista } = React.useContext(ListaContext);
+ 
+  const onRenderCell = (item: IListasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
     return (
       <div className={classNames.itemCell} data-is-focusable={true}>
         <Image
@@ -103,18 +88,11 @@ export const ListGhostingExample =()=> {
     );
   };
   
-
-  
-  
-  
-   
+ 
   return (
     <FocusZone direction={FocusZoneDirection.vertical}>
       <div className={classNames.container} data-is-scrollable>
-      {state?<List items={[{name:state,image:state,thumbnail:state}]} onRenderCell={onRenderCell}   />:''} 
-    
-      
-      
+      {elementosLista[0]!=null || elementosLista[0]!=undefined?<List items={elementosLista} onRenderCell={onRenderCell}   />:''} 
       </div>
     </FocusZone>
   );

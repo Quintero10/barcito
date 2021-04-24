@@ -8,11 +8,7 @@ export interface AppContextInterface {
 
 }
 
-export interface ICategoriasContextInterface {
-  image:string | undefined;
-  name:string | undefined;
-  thumbnail:string | undefined;
-}
+
 
  export const AppCtx = React.createContext<AppContextInterface[] | null>(null);
 

@@ -11,12 +11,12 @@ import { AppCtx,  CategoriasProvider } from './components/Context/CategoriasCont
 import axios from 'axios';
 import './components/DrinkList.css'
 import './components/Search.css'
-import { createCtx } from './components/Context/ListaContext';
+import ListaProvider from './components/Context/ListaContext';
 
 
 
-const [ctx, TextProvider] = createCtx("");
-export const TextContext = ctx;
+
+
 
 const App =()=> {
  
@@ -25,16 +25,18 @@ const App =()=> {
   return(
 
   <CategoriasProvider >
-    <TextProvider>
+    <ListaProvider>
     <div className="App">
      
         <div className="search">
           <Search   />
         </div>
+        <div className="drinklist">
         <ListGhostingExample />
+        </div>
          
     </div>
-    </TextProvider>
+    </ListaProvider>
     </CategoriasProvider>
      /*Aquí iban DrinkList y el Modal en caso de corresponder*/
     

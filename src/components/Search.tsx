@@ -6,31 +6,38 @@ import {  getGlassesOriginal } from './Utils/Utils';
 import axios from 'axios';
 import '../Search.css';
 import { AppCtx} from './Context/CategoriasContext';
-import { TextContext } from '../App';
+
+import { ListaContext } from './Context/ListaContext';
+import { useRef } from 'react';
 
 
 initializeIcons();
 
 
 const Search = () => {
-  const {update } = React.useContext(TextContext);
+  const {setParametroBusqueda } = React.useContext(ListaContext);
   //State
+  const[comboTextContent,setComboTextContent]=useState('');
    const[textContent,setTextContent]=useState('');
   const [textBoxDisabled,disableTextBox]=useState(false);
   const [comboBoxDisabled,disableComboBox]=useState(true);
   const CategoriasContextInSearch=React.useContext(AppCtx)
   
   const setTextContentInstate = (e: any) =>{  
-    if(e != undefined){
-    setTextContent(e.target.value);
-  }
+    
+      if( e != undefined ){
+      e.preventDefault();
+      setTextContent(e.target.value);
+     
+    }
+   
+  
 }
 
-  const showMessageInConsole = ():void => {
-    
-  
+const setComboTextContentInstate= (option:string) =>{
  
-
+  setComboTextContent(option);
+  
 }
 
     // Example formatting
@@ -70,16 +77,25 @@ const Search = () => {
 
     CategoriasContextInSearch?.map(
       (element,value)=>{
-        options.push({key:element.id!,text:element.strGlass!})
+        options.push({key:element.id!,text:element.strGlass!,id:element.id!})
       }
     )
   }
    
-   
+  const mounted = useRef();
     useEffect(() => {
-      fillCategories()
+      if (!mounted.current) {
+        // do componentDidMount logic
+        console.log("Search mounted")
+       
+      } else {
+        // do componentDidUpdate logic
+        console.log("Search componentdidupdate");
+        
+      }
+      
       //TODO: No se debería llamar siempre a esta función. Solamente cuando se activa el sistmea de búsqueda (y además, cachearlo)
-     
+      fillCategories()
       
   
     });
@@ -110,12 +126,15 @@ const Search = () => {
                                     options={options}
                                     styles={dropdownStyles}
                                     disabled={comboBoxDisabled}
-                                      />
+                                    onChange={(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number)=>{setComboTextContentInstate(option?.text!)
+                                    }}
+                                    />
+                                      
                                      
                                       </div>
                                       <div className="four">
                                       <div className="primaryButton">
-                                        <PrimaryButton text="Search"   onClick={()=>update(textContent)}/>
+                                        <PrimaryButton text="Search"   onClick={()=>textContent?setParametroBusqueda(textContent):setParametroBusqueda(comboTextContent)}/>
                                         </div>
 
                                       </div>
@@ -137,3 +156,6 @@ const Search = () => {
  
 
 export default Search;
+
+/*(event: React.FormEvent<HTMLDivElement>,option?: IDropdownOption, index?: number)=>{setComboTextContent(option?.text!)
+                                    console.log(comboTextContent)} */
