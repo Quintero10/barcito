@@ -11,6 +11,7 @@ import { Modal } from '@fluentui/react';
 import { ModalBasicExample } from './Modal';
 
 import {  IListasContextInterface, ListaContext } from './Context/ListaContext';
+import { ModalContext } from './Context/ModalContext';
 
 const theme: ITheme = getTheme();
 const { palette, semanticColors, fonts } = theme;
@@ -68,10 +69,11 @@ const classNames = mergeStyleSets({
 export const ListGhostingExample =()=> {
 
   const {elementosLista } = React.useContext(ListaContext);
+  const {setParametroModal}=React.useContext(ModalContext);
  
   const onRenderCell = (item: IListasContextInterface | undefined, index?: number, isScrolling?: boolean): JSX.Element => {
     return (
-      <div className={classNames.itemCell} data-is-focusable={true}>
+      <div className={classNames.itemCell} data-is-focusable={true} onClick={()=>{setParametroModal(item?.name!)}}>
         <Image
           className={classNames.itemImage}
           src={isScrolling ? undefined : item?.image}

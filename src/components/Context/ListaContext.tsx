@@ -11,12 +11,14 @@ export interface IListasContextInterface {
 
 export type ListaContextState = {
   setParametroBusqueda:(name:string)=>void;
+  setParametroBusquedaVaso:(vaso:string)=>void;
   elementosLista: IListasContextInterface[];
  
 };
 
 const ListaContextDefaultValues: ListaContextState = {
   setParametroBusqueda: () => {},
+  setParametroBusquedaVaso:()=>{},
   elementosLista: []
  
 };
@@ -31,6 +33,9 @@ const ListaContextProvider: FC = ({ children }) => {
     console.log(busqueda)
     getElementsByIngredient(busqueda);
   }
+  const setParametroBusquedaVaso=(busqueda:string)=>{
+    getElementsByGlass(busqueda)
+  }
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
@@ -43,6 +48,26 @@ const ListaContextProvider: FC = ({ children }) => {
       
     }
   },[]);
+
+  
+const getElementsByGlass=async(busqueda: string) =>{
+  console.log("getElementsByGlass")
+  console.log(busqueda)
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${busqueda}`;
+  const categorias = await axios.get(url);
+  console.log(categorias);
+  let responseDataJson=categorias.data.drinks;
+
+  console.log(responseDataJson);
+  const elementos:IListasContextInterface[]=[];
+  for(let element in responseDataJson){
+    console.log(responseDataJson[element])
+    //responseDataJson[element].strDrink , responseDataJson[element].strDrinkthumb,
+    elementos.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Click for recipe!'})
+  }
+  setearElementosLista(elementos);
+  
+}
 
   const getElementsByIngredient= async(elementoBusqueda:String ) =>{
     console.log("getElementsByIngredient")
@@ -66,7 +91,8 @@ const ListaContextProvider: FC = ({ children }) => {
     <ListaContext.Provider
       value={{
         elementosLista,
-        setParametroBusqueda
+        setParametroBusqueda,
+        setParametroBusquedaVaso
         
       }}
     >
@@ -76,3 +102,4 @@ const ListaContextProvider: FC = ({ children }) => {
 };
 
 export default ListaContextProvider;
+

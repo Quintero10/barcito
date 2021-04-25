@@ -15,13 +15,14 @@ initializeIcons();
 
 
 const Search = () => {
-  const {setParametroBusqueda } = React.useContext(ListaContext);
+  const {setParametroBusqueda,setParametroBusquedaVaso } = React.useContext(ListaContext);
   //State
   const[comboTextContent,setComboTextContent]=useState('');
    const[textContent,setTextContent]=useState('');
   const [textBoxDisabled,disableTextBox]=useState(false);
   const [comboBoxDisabled,disableComboBox]=useState(true);
   const CategoriasContextInSearch=React.useContext(AppCtx)
+  let comboTextContentB='';
   
   const setTextContentInstate = (e: any) =>{  
     
@@ -67,7 +68,7 @@ const setComboTextContentInstate= (option:string) =>{
       disableTextBox(false);
       disableComboBox(true);
     } else {
-     
+      setTextContent('');
       disableTextBox(true);
       disableComboBox(false);
     
@@ -126,7 +127,8 @@ const setComboTextContentInstate= (option:string) =>{
                                     options={options}
                                     styles={dropdownStyles}
                                     disabled={comboBoxDisabled}
-                                    onChange={(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number)=>{setComboTextContentInstate(option?.text!)
+                                    onChange={(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number)=>{comboTextContentB=option?.text!
+                                      console.log(comboTextContentB);
                                     }}
                                     />
                                       
@@ -134,7 +136,7 @@ const setComboTextContentInstate= (option:string) =>{
                                       </div>
                                       <div className="four">
                                       <div className="primaryButton">
-                                        <PrimaryButton text="Search"   onClick={()=>textContent?setParametroBusqueda(textContent):setParametroBusqueda(comboTextContent)}/>
+                                        <PrimaryButton text="Search"   onClick={()=>textContent?setParametroBusqueda(textContent):setParametroBusquedaVaso(comboTextContentB)}/>
                                         </div>
 
                                       </div>

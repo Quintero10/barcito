@@ -6,12 +6,16 @@ import Search from './components/Search';
 import Title from './components/Title';
 import { ListGhostingExample } from '../src/components/DrinkList';
 import { PrimaryButton } from 'office-ui-fabric-react';
-import { AppCtx,  CategoriasProvider } from './components/Context/CategoriasContext';
+import { CategoriasProvider } from './components/Context/CategoriasContext';
 
 import axios from 'axios';
 import './components/DrinkList.css'
 import './components/Search.css'
 import ListaProvider from './components/Context/ListaContext';
+import { ModalContextProvider } from './components/Context/ModalContext';
+import { Modal } from '@fluentui/react';
+import { ModalBasicExample } from './components/Modal';
+
 
 
 
@@ -31,9 +35,12 @@ const App =()=> {
         <div className="search">
           <Search   />
         </div>
+        <ModalContextProvider>
         <div className="drinklist">
         <ListGhostingExample />
+        <ModalBasicExample />
         </div>
+        </ModalContextProvider>
          
     </div>
     </ListaProvider>
