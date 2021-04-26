@@ -6,18 +6,21 @@ export interface IModalContextInterface {
     strInstructions:string | undefined;
     strDrinkThumb:string | undefined;
     strGlass:string| undefined;
+    
   }
   
   export type ListaContextState = {
     setParametroModal:(name:string)=>void;
     elementosModal: IModalContextInterface | undefined;
-   
+    ModalIsOpen:boolean | undefined;
+    setOpenModal:(value:boolean)=>void;
   };
 
   const ModalContextDefaultValues: ListaContextState = {
     setParametroModal: () => {},
-    elementosModal: undefined
-   
+    elementosModal: undefined,
+    ModalIsOpen:true,
+    setOpenModal:()=>{}
   };
 
   export const ModalContext = createContext<ListaContextState>(
@@ -26,9 +29,16 @@ export interface IModalContextInterface {
 
   export const ModalContextProvider: FC = ({ children }) => {
     const [elementosModal, setearElementosModal] = useState<IModalContextInterface | undefined>(ModalContextDefaultValues.elementosModal);
+    const [ModalIsOpen,setearModalIsOpen]=useState(true);
+    
     const setParametroModal= (busqueda:string) => {
       console.log(busqueda)
       getElementsByDrinkName(busqueda);
+    }
+
+    const setOpenModal =(value:boolean)=>{
+      setearElementosModal(undefined);
+      setearModalIsOpen(value);
     }
   
     const mounted = useRef();
@@ -46,6 +56,7 @@ export interface IModalContextInterface {
   
     
   const getElementsByDrinkName=async(busqueda: string) =>{
+    setearModalIsOpen(true);
     console.log("getElementsByDrinkName")
     console.log(busqueda)
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${busqueda}`;
@@ -70,7 +81,9 @@ export interface IModalContextInterface {
       <ModalContext.Provider
         value={{
           elementosModal,
-          setParametroModal
+          setParametroModal,
+          setOpenModal,
+          ModalIsOpen
         }}
       >
         {children}

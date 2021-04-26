@@ -13,17 +13,21 @@ import {
   IIconProps,
 } from 'office-ui-fabric-react';
 import { ModalContext } from './Context/ModalContext';
+import { ImageFit } from '@fluentui/react';
 
 const dragOptions: IDragOptions = {
   moveMenuItemText: 'Move',
   closeMenuItemText: 'Close',
   menu: ContextualMenu,
 };
+
 const cancelIcon: IIconProps = { iconName: 'Cancel' };
 
 export const ModalBasicExample: React.FunctionComponent = () => {
   
-  const {elementosModal}=React.useContext(ModalContext);
+  const {elementosModal,setOpenModal,ModalIsOpen}=React.useContext(ModalContext);
+  
+  
  
 
   // Use useId() to ensure that the IDs are unique on the page.
@@ -38,21 +42,21 @@ export const ModalBasicExample: React.FunctionComponent = () => {
     
       <Modal
         titleAriaId={titleId}
+        isOpen={elementosModal!=undefined && ModalIsOpen}
         
-        
-       
         containerClassName={contentStyles.container}
-       
       >
         <div className={contentStyles.header}>
-          <span id={titleId}>{elementosModal?.title}</span>
+          <span  id={titleId} >{elementosModal?.title}</span>
+          
           <IconButton
             styles={iconButtonStyles}
             iconProps={cancelIcon}
             ariaLabel="Close popup modal"
-           
+            onClick={()=>setOpenModal(false)}
           />
         </div>
+       
         <div className={contentStyles.body}>
           <p>
             {elementosModal?.strGlass}
@@ -61,7 +65,11 @@ export const ModalBasicExample: React.FunctionComponent = () => {
             {elementosModal?.strInstructions}
           </p>
           <p>
-            {elementosModal?.strDrinkThumb}
+            <div>
+            <img src={elementosModal?.strDrinkThumb} alt="Image of beverage" width="50" height="60">
+            </img>
+            </div>
+            
           </p>
          
         </div>
@@ -82,15 +90,22 @@ const contentStyles = mergeStyleSets({
    
     theme.fonts.xLargePlus,
     {
-      flex: '1 1 auto',
+      
       borderTop: `4px solid ${theme.palette.themePrimary}`,
       color: theme.palette.neutralPrimary,
-      display: 'flex',
-      alignItems: 'center',
+      
+      textAlign:'center',
+      
       fontWeight: FontWeights.semibold,
       padding: '12px 12px 14px 24px',
     },
   ],
+  icon:{
+    alignItems:'right',
+    display:'flex',
+    
+    
+  },
   body: {
     flex: '4 4 auto',
     padding: '0 24px 24px 24px',

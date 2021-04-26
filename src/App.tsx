@@ -38,8 +38,9 @@ const App =()=> {
         <ModalContextProvider>
         <div className="drinklist">
         <ListGhostingExample />
-        <ModalBasicExample />
         </div>
+        <ModalBasicExample />
+       
         </ModalContextProvider>
          
     </div>
