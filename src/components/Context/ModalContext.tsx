@@ -37,7 +37,7 @@ export interface IModalContextInterface {
     }
 
     const setOpenModal =(value:boolean)=>{
-      setearElementosModal(undefined);
+      //setearElementosModal(undefined);
       setearModalIsOpen(value);
     }
   
