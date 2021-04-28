@@ -1,82 +1,66 @@
 import * as React from 'react';
 import { useId, useBoolean } from '@uifabric/react-hooks';
 import {
+  Modal,
   getTheme,
   mergeStyleSets,
   FontWeights,
-  ContextualMenu,
-  Toggle,
-  DefaultButton,
-  Modal,
   IDragOptions,
-  IconButton,
+  Toggle,
+  ContextualMenu,
   IIconProps,
-  ProgressIndicator,
-} from 'office-ui-fabric-react';
-import { ModalContext } from './Context/ModalContext';
-import { ImageFit } from '@fluentui/react';
+} from '@fluentui/react';
+import { DefaultButton, IconButton } from '@fluentui/react/lib/Button';
+import { ErrorContext } from './Context/ErrorContext';
 
 const dragOptions: IDragOptions = {
   moveMenuItemText: 'Move',
   closeMenuItemText: 'Close',
   menu: ContextualMenu,
 };
-
 const cancelIcon: IIconProps = { iconName: 'Cancel' };
 
-export const ModalBasicExample: React.FunctionComponent = () => {
-  
-  const {elementosModal,setOpenModal,ModalIsOpen}=React.useContext(ModalContext);
-  
-  
- 
+export const ModalError: React.FunctionComponent = () => {
+  const [isModalOpen, { setTrue: showModal, setFalse: hideModal }] = useBoolean(false);
+  const [isDraggable, { toggle: toggleIsDraggable }] = useBoolean(false);
+  const {Error,setError}=React.useContext(ErrorContext);
 
   // Use useId() to ensure that the IDs are unique on the page.
   // (It's also okay to use plain strings and manually ensure uniqueness.)
   const titleId = useId('title');
-  console.log("Modal");
-  console.log(elementosModal)
+
   return (
     <div>
-     
- 
-      {/*<ProgressIndicator />*/}
+      
       
       <Modal
         titleAriaId={titleId}
-        isOpen={elementosModal!=undefined && ModalIsOpen}
-        
+        isOpen={Error}
+        onDismiss={hideModal}
+        isModeless={true}
         containerClassName={contentStyles.container}
+        dragOptions={isDraggable ? dragOptions : undefined}
       >
         <div className={contentStyles.header}>
-          <span  id={titleId} >{elementosModal?.title}</span>
-          
+          <span id={titleId}>Error! Hiiiiiip</span>
           <IconButton
             styles={iconButtonStyles}
             iconProps={cancelIcon}
             ariaLabel="Close popup modal"
-            onClick={()=>setOpenModal(false)}
+            onClick={()=>setError(false)}
           />
         </div>
-       
+
         <div className={contentStyles.body}>
           <p>
-            <p>Serve in:</p>{elementosModal?.strGlass}
+          "When we drink, we get drunk.
+           When we get drunk, we fall asleep.
+           When we fall asleep, we commit no sin.
+           When we commit no sin, we go to heaven.
+           So, let's all get drunk, and go to heaven! And enter data in TextBoxField or ComboBox{' '}
           </p>
-        <p>
-            <p>Instructions:</p>{elementosModal?.strInstructions}
-          </p>
-          <p>
-            <div>
-            <img src={elementosModal?.strDrinkThumb} alt="Image of beverage" width="150" height="160">
-            </img>
-            </div>
-            
-          </p>
-         
         </div>
       </Modal>
- 
     </div>
   );
 };
@@ -89,25 +73,18 @@ const contentStyles = mergeStyleSets({
     alignItems: 'stretch',
   },
   header: [
-   
+ 
     theme.fonts.xLargePlus,
     {
-      
+      flex: '1 1 auto',
       borderTop: `4px solid ${theme.palette.themePrimary}`,
       color: theme.palette.neutralPrimary,
-      display:'flex',
-      textAlign:'center',
-      
+      display: 'flex',
+      alignItems: 'center',
       fontWeight: FontWeights.semibold,
       padding: '12px 12px 14px 24px',
     },
   ],
-  icon:{
-    alignItems:'right',
-    display:'flex',
-    
-    
-  },
   body: {
     flex: '4 4 auto',
     padding: '0 24px 24px 24px',

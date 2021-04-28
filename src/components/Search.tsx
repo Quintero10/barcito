@@ -9,6 +9,7 @@ import { AppCtx} from './Context/CategoriasContext';
 
 import { ListaContext } from './Context/ListaContext';
 import { useRef } from 'react';
+import { ErrorContext } from './Context/ErrorContext';
 
 
 initializeIcons();
@@ -22,6 +23,7 @@ const Search = () => {
   const [textBoxDisabled,disableTextBox]=useState(false);
   const [comboBoxDisabled,disableComboBox]=useState(true);
   const CategoriasContextInSearch=React.useContext(AppCtx)
+  const {setError}=React.useContext(ErrorContext);
   let comboTextContentB='';
   
   const setTextContentInstate = (e: any) =>{  
@@ -136,7 +138,7 @@ const setComboTextContentInstate= (option:string) =>{
                                       </div>
                                       <div className="four">
                                       <div className="primaryButton">
-                                        <PrimaryButton text="Search"   onClick={()=>textContent?setParametroBusqueda(textContent):setParametroBusquedaVaso(comboTextContentB)}/>
+                                        <PrimaryButton text="Search"   onClick={()=>textContent?setParametroBusqueda(textContent):comboTextContentB?setParametroBusquedaVaso(comboTextContentB):setError(true)}/>
                                         </div>
 
                                       </div>

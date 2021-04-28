@@ -15,6 +15,8 @@ import ListaProvider from './components/Context/ListaContext';
 import { ModalContextProvider } from './components/Context/ModalContext';
 import { Modal } from '@fluentui/react';
 import { ModalBasicExample } from './components/Modal';
+import { ErrorContextProvider } from './components/Context/ErrorContext';
+import { ModalError } from './components/ModalError';
 
 
 
@@ -32,9 +34,12 @@ const App =()=> {
     <ListaProvider>
     <div className="App">
      
+        <ErrorContextProvider>
         <div className="search">
           <Search   />
+          <ModalError />
         </div>
+        </ErrorContextProvider>
         <ModalContextProvider>
         <div className="drinklist">
         <ListGhostingExample />
