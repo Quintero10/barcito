@@ -32,7 +32,6 @@ export interface IModalContextInterface {
     const [ModalIsOpen,setearModalIsOpen]=useState(true);
     
     const setParametroModal= (busqueda:string) => {
-      console.log(busqueda)
       getElementsByDrinkName(busqueda);
     }
 
@@ -49,7 +48,7 @@ export interface IModalContextInterface {
         
       } else {
         // do componentDidUpdate logic
-        console.log("ListaContext componentdidupdate");
+        console.log("ListaContext componentdidupdate")
         
       }
     },[]);
@@ -57,14 +56,13 @@ export interface IModalContextInterface {
     
   const getElementsByDrinkName=async(busqueda: string) =>{
     setearModalIsOpen(true);
-    console.log("getElementsByDrinkName")
-    console.log(busqueda)
+   
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${busqueda}`;
     const categorias = await axios.get(url);
-    console.log(categorias);
+    
     let responseDataJson=categorias.data.drinks;
   
-    console.log(responseDataJson);
+   
     let elementos:IModalContextInterface | undefined=undefined;
     elementos={title:responseDataJson[0].strDrink,strDrinkThumb:responseDataJson[0].strDrinkThumb,strGlass:responseDataJson[0].strGlass,strInstructions:responseDataJson[0].strInstructions}
 
