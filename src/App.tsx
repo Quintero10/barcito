@@ -17,6 +17,7 @@ import { Modal } from '@fluentui/react';
 import { ModalBasicExample } from './components/Modal';
 import { ErrorContextProvider } from './components/Context/ErrorContext';
 import { ModalError } from './components/ModalError';
+import { ModalProgressIndicator } from './components/ModalProgressIndicator';
 
 
 
@@ -44,6 +45,7 @@ const App =()=> {
         <div className="drinklist">
         <ListGhostingExample />
         </div>
+        <ModalProgressIndicator />
         <ModalBasicExample />
        
         </ModalContextProvider>

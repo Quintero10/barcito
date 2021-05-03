@@ -15,6 +15,8 @@ import {
 } from 'office-ui-fabric-react';
 import { ModalContext } from './Context/ModalContext';
 import { ImageFit } from '@fluentui/react';
+import { ModalProgressIndicator } from './ModalProgressIndicator';
+import '../modalstyles.css'
 
 const dragOptions: IDragOptions = {
   moveMenuItemText: 'Move',
@@ -26,7 +28,7 @@ const cancelIcon: IIconProps = { iconName: 'Cancel' };
 
 export const ModalBasicExample: React.FunctionComponent = () => {
   
-  const {elementosModal,setOpenModal,ModalIsOpen}=React.useContext(ModalContext);
+  const {elementosModal,setOpenModal,ModalIsOpen,loading}=React.useContext(ModalContext);
   
   
  
@@ -38,7 +40,7 @@ export const ModalBasicExample: React.FunctionComponent = () => {
     <div>
      
  
-      {/*<ProgressIndicator />*/}
+      
       
       <Modal
         titleAriaId={titleId}
@@ -58,12 +60,18 @@ export const ModalBasicExample: React.FunctionComponent = () => {
         </div>
        
         <div className={contentStyles.body}>
-          <p>
-            <p>Serve in:</p>{elementosModal?.strGlass}
-          </p>
-        <p>
-            <p>Instructions:</p>{elementosModal?.strInstructions}
-          </p>
+          
+            <p className="modalstyle">Serve in:</p><p>{elementosModal?.strGlass}</p>
+
+            <p className="modalstyle">Ingredients:</p>
+            {elementosModal?.strIngredient.map((ingredient)=>{
+              if(ingredient != null){
+                return <p>{ingredient}</p>
+              }
+            })}         
+        
+            <p className="modalstyle">Instructions:</p><p>{elementosModal?.strInstructions}</p>
+        
           <p>
             <div>
             <img src={elementosModal?.strDrinkThumb} alt="Image of beverage" width="150" height="160">
@@ -111,7 +119,7 @@ const contentStyles = mergeStyleSets({
     padding: '0 24px 24px 24px',
     overflowY: 'hidden',
     selectors: {
-      p: { margin: '14px 0' },
+      p: { margin: '4px 0' },
       'p:first-child': { marginTop: 0 },
       'p:last-child': { marginBottom: 0 },
     },
