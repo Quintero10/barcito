@@ -18,6 +18,7 @@ export interface AppContextInterface {
 
     //const sampleAppContext: AppContextInterface[] | null =null;
     const [categorias, guardarCategorias] = React.useState<AppContextInterface[]>([]);
+    
  const getGlassesCategory= async() =>{
   
   const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list';
