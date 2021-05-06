@@ -2,8 +2,7 @@ import React, { useContext, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Search from './components/Search';
-//import CategoriasProvider from './components/Context/CategoriasContext';
-import Title from './components/Title';
+
 import { ListGhostingExample } from '../src/components/DrinkList';
 import { PrimaryButton } from 'office-ui-fabric-react';
 import { CategoriasProvider } from './components/Context/CategoriasContext';
