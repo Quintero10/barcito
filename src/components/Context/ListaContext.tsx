@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useState, FC, useEffect, useRef } from "react";
+import { ErrorGenericContext } from "./ErrorGenericContext";
 
 //Interface
 export interface IListasContextInterface {
@@ -26,7 +27,11 @@ export const ListaContext = createContext<ListaContextState>(
 );
 //COMPONENT
 const ListaContextProvider: FC = ({ children }) => {
+ //State
  const [elementosLista, setearElementosLista] = useState<IListasContextInterface[]>(ListaContextDefaultValues.elementosLista);
+ 
+ //useContext
+ const {setGenericError}=React.useContext(ErrorGenericContext);
  
  //Functions
  const setParametroBusqueda= (busqueda:string) => { 
@@ -36,40 +41,47 @@ const ListaContextProvider: FC = ({ children }) => {
     getElementsByGlass(busqueda)
   }
   const getElementsByGlass=async(busqueda: string) =>{
-    console.log("getElementsByGlass")
+    try{
+      console.log("getElementsByGlass")
     console.log(busqueda)
     const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${busqueda}`;
-    const categorias = await axios.get(url);
+    
+    const categorias = await axios.get(url).catch(error=>{throw new Error(error)});
     console.log(categorias);
     let responseDataJson=categorias.data.drinks;
   
     console.log(responseDataJson);
     const elementos:IListasContextInterface[]=[];
     for(let element in responseDataJson){
-      console.log(responseDataJson[element])
-      //responseDataJson[element].strDrink , responseDataJson[element].strDrinkthumb,
       elementos.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Click for recipe!'})
     }
     setearElementosLista(elementos);
+    }catch(error){
+      console.error(error);
+      setGenericError(true)
+    }
+    
     
   }
   
     const getElementsByIngredient= async(elementoBusqueda:String ) =>{
-      console.log("getElementsByIngredient")
-      console.log(elementoBusqueda)
-      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${elementoBusqueda}`;
-      const categorias = await axios.get(url);
-      console.log(categorias);
-      let responseDataJson=categorias.data.drinks;
-  
-      console.log(responseDataJson);
-      const elementos:IListasContextInterface[]=[];
-      for(let element in responseDataJson){
-        console.log(responseDataJson[element])
-        //responseDataJson[element].strDrink , responseDataJson[element].strDrinkthumb,
-        elementos.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Click for recipe!'})
+      try{
+        const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${elementoBusqueda}`;
+        const categorias = await axios.get(url);
+        let responseDataJson=categorias.data.drinks;
+    
+        console.log(responseDataJson);
+        const elementos:IListasContextInterface[]=[];
+        for(let element in responseDataJson){
+          elementos.push({name:responseDataJson[element].strDrink,image:responseDataJson[element].strDrinkThumb,thumbnail:'Click for recipe!'})
+        }
+        setearElementosLista(elementos);
+
+      }catch(error){
+        console.error(error);
+        setGenericError(true)
       }
-      setearElementosLista(elementos);
+     
     }
   //End Functions
 

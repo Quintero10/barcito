@@ -4,7 +4,7 @@
     gap: 1px;
     grid-auto-rows: minmax(auto, auto);
     margin-top: 20px;
-    padding-left: 95px;
+    padding-left: 195px;
     
   }
 /*repeat(3, 300px);*/
@@ -36,6 +36,6 @@
 
     grid-column: 4 / 4;
     grid-row: 1;
-    padding-right: 100px;
+    padding-right: 114px;
 }
 

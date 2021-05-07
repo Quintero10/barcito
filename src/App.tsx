@@ -17,6 +17,8 @@ import { ModalBasicExample } from './components/Modal';
 import { ErrorContextProvider } from './components/Context/ErrorContext';
 import { ModalError } from './components/ModalError';
 import { ModalProgressIndicator } from './components/ModalProgressIndicator';
+import { ErrorGenericContextProvider } from './components/Context/ErrorGenericContext';
+import { ModalGenericError } from './components/ErrorGeneric';
 
 
 
@@ -29,7 +31,7 @@ const App =()=> {
  
  
   return(
-
+<ErrorGenericContextProvider>
   <CategoriasProvider >
     <ListaProvider>
     <div className="App">
@@ -37,8 +39,10 @@ const App =()=> {
         <ErrorContextProvider>
         <div className="search">
           <Search   />
+          </div>
           <ModalError />
-        </div>
+          <ModalGenericError />
+        
         </ErrorContextProvider>
         <ModalContextProvider>
         <div className="drinklist">
@@ -52,7 +56,8 @@ const App =()=> {
     </div>
     </ListaProvider>
     </CategoriasProvider>
-     /*Aquí iban DrinkList y el Modal en caso de corresponder*/
+    </ErrorGenericContextProvider>
+
     
   );
 }
@@ -60,5 +65,3 @@ const App =()=> {
 
 export default App;
 
-//comentario de prueba
-//comentario 2 de prueba

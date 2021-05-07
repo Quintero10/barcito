@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useState, FC, useEffect, useRef } from "react";
+import { ErrorGenericContext } from "./ErrorGenericContext";
 //Interface
 export interface IModalContextInterface {
     title:string | undefined;
@@ -31,6 +32,10 @@ export interface IModalContextInterface {
 
   //Component
   export const ModalContextProvider: FC = ({ children }) => {
+
+    //useContext
+    const {setGenericError}=React.useContext(ErrorGenericContext);
+
     //State
     const [elementosModal, setearElementosModal] = useState<IModalContextInterface | undefined>(ModalContextDefaultValues.elementosModal);
     const [ModalIsOpen,setearModalIsOpen]=useState(true);
@@ -50,12 +55,11 @@ export interface IModalContextInterface {
       setearModalIsOpen(value);
     }
     const getElementsByDrinkName=async(busqueda: string) =>{
-    
-      console.log("SetLoading to True")
-      setearModalIsOpen(true);
+      try{
+        setearModalIsOpen(true);
       
       const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${busqueda}`;
-      const categorias = await axios.get(url);
+      const categorias = await axios.get(url).catch(error=>{throw new Error(error)});
       
       let responseDataJson=categorias.data.drinks;
       let ingredients: string[]=[];
@@ -81,7 +85,13 @@ export interface IModalContextInterface {
       elementos={title:responseDataJson[0].strDrink,strDrinkThumb:responseDataJson[0].strDrinkThumb,strGlass:responseDataJson[0].strGlass,strInstructions:responseDataJson[0].strInstructions,strIngredient:[...ingredients]}
       setearElementosModal(elementos);
       setLoading(false);
-      console.log("setLoading to False")
+  
+      }catch(error){
+        console.error(error)
+        setGenericError(true)
+      }
+     
+      
     }
     //End Functions
     
