@@ -37,7 +37,6 @@ const Search = () => {
         
   ];
    
-
   //functions
   const setTextContentInstate = (e: any) =>{  
     if( e != undefined ){
