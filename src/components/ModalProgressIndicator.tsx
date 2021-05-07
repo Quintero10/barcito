@@ -21,7 +21,7 @@ export const ModalProgressIndicator: React.FunctionComponent = () => {
   const [isDraggable, { toggle: toggleIsDraggable }] = useBoolean(false);
   const [keepInBounds, { toggle: toggleKeepInBounds }] = useBoolean(false);
   const {elementosModal,setOpenModal,ModalIsOpen,loading}=React.useContext(ModalContext);
-  // Normally the drag options would be in a constant, but here the toggle can modify keepInBounds
+  
   const dragOptions = React.useMemo(
     (): IDragOptions => ({
       moveMenuItemText: 'Move',
@@ -32,15 +32,10 @@ export const ModalProgressIndicator: React.FunctionComponent = () => {
     [keepInBounds],
   );
 
-  // Use useId() to ensure that the IDs are unique on the page.
-  // (It's also okay to use plain strings and manually ensure uniqueness.)
   const titleId = useId('title');
 
   return (
-    <div>
-     
-
-     
+    <div>     
       <Modal
         titleAriaId={titleId}
         isOpen={loading}

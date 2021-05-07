@@ -12,59 +12,42 @@ import { ErrorContext } from './Context/ErrorContext';
 
 initializeIcons();
 
-
+//Component
 const Search = () => {
+  //Context
   const {setParametroBusqueda,setParametroBusquedaVaso } = React.useContext(ListaContext);
+  const {setError}=React.useContext(ErrorContext);
+
   //State
   const[comboTextContent,setComboTextContent]=useState('');
-   const[textContent,setTextContent]=useState('');
+  const[textContent,setTextContent]=useState('');
   const [textBoxDisabled,disableTextBox]=useState(false);
   const [comboBoxDisabled,disableComboBox]=useState(true);
   const CategoriasContextInSearch=React.useContext(AppCtx)
-  const {setError}=React.useContext(ErrorContext);
   let comboTextContentB='';
   
+  //Styles
+  const stackTokens: IStackTokens = { childrenGap: 20 };
+  const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: 200 } };
+  const dropdownStyles: Partial<IDropdownStyles> = {
+    dropdown: { width: 200 },
+  };
+  const options: IDropdownOption[] = [
+    { key: 'glasses', text: 'Glasses', itemType: DropdownMenuItemType.Header },
+        
+  ];
+   
+
+  //functions
   const setTextContentInstate = (e: any) =>{  
-    
-      if( e != undefined ){
-      e.preventDefault();
-      setTextContent(e.target.value);
-     
-    }
-   
-  
+    if( e != undefined ){
+    e.preventDefault();
+    setTextContent(e.target.value);
+  }
 }
-
-const setComboTextContentInstate= (option:string) =>{
- 
-  setComboTextContent(option);
-  
-}
-
-    // Example formatting
-    const stackTokens: IStackTokens = { childrenGap: 20 };
-
-    const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: 200 } };
-
-    const dropdownStyles: Partial<IDropdownStyles> = {
-      dropdown: { width: 200 },
-    };
-    
-    const options: IDropdownOption[] = [
-      { key: 'glasses', text: 'Glasses', itemType: DropdownMenuItemType.Header },
-      
-     
-    ];
-   
-
-   
-
- 
   function selectSearch(){
 
- 
-    if(textBoxDisabled){
-   
+    if(textBoxDisabled){   
       disableTextBox(false);
       disableComboBox(true);
     } else {
@@ -82,74 +65,53 @@ const setComboTextContentInstate= (option:string) =>{
       }
     )
   }
-   
-  const mounted = useRef();
+    //Hooks
     useEffect(() => {
-      if (!mounted.current) {
-        // do componentDidMount logic
-        console.log("Search mounted")
-       
-      } else {
-        // do componentDidUpdate logic
-        console.log("Search componentdidupdate");
-        
-      }
-      
-      //TODO: No se debería llamar siempre a esta función. Solamente cuando se activa el sistmea de búsqueda (y además, cachearlo)
+ 
       fillCategories()
-      
   
     });
 
-     
+    //Return 
     return(
     
-                 <div className="wrapper">
-                   <div className="one"> <Toggle  onClick={selectSearch}/></div>
-                            
-                                
-                                    <div className="two">
-                                    {
-                                      <SearchBox 
-                                      name="searchBox"
-                                      className="searchBox"  
-                                      styles={searchBoxStyles} 
-                                      placeholder="Cheers!" 
-                                      onChange={setTextContentInstate} 
-                                      
-                                      disabled={textBoxDisabled}
-                                      />
-                                    }
-                                      </div>
-                                      <div className="three">
-                                      <Dropdown
-                                    placeholder="Select a glass"
-                                    options={options}
-                                    styles={dropdownStyles}
-                                    disabled={comboBoxDisabled}
-                                    onChange={(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number)=>{comboTextContentB=option?.text!
-                                      console.log(comboTextContentB);
-                                    }}
-                                    />
-                                      
-                                     
-                                      </div>
-                                      <div className="four">
-                                      <div className="primaryButton">
-                                        <PrimaryButton text="Search"   onClick={()=>textContent?setParametroBusqueda(textContent):comboTextContentB?setParametroBusquedaVaso(comboTextContentB):setError(true)}/>
-                                        </div>
+          <div className="wrapper">
 
-                                      </div>
-                                      
-                                 
+            <div className="one"> 
+              <Toggle  onClick={selectSearch}/>
+            </div>
 
-                   </div>
+            <div className="two">
+                <SearchBox 
+                name="searchBox"
+                className="searchBox"  
+                styles={searchBoxStyles} 
+                placeholder="Cheers!" 
+                onChange={setTextContentInstate} 
+                
+                disabled={textBoxDisabled}
+                />
+            </div>                    
+                           
+            <div className="three">
+                <Dropdown
+                  placeholder="Select a glass"
+                  options={options}
+                  styles={dropdownStyles}
+                  disabled={comboBoxDisabled}
+                  onChange={(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number)=>{comboTextContentB=option?.text!
                     
-                       
+                }}
+                />
+            </div>
 
-                                
-            
-            
+            <div className="four">
+              <div className="primaryButton">
+                <PrimaryButton text="Search"   onClick={()=>textContent?setParametroBusqueda(textContent):comboTextContentB?setParametroBusquedaVaso(comboTextContentB):setError(true)}/>
+              </div>
+            </div>      
+
+          </div> 
        
     );
 
@@ -158,6 +120,3 @@ const setComboTextContentInstate= (option:string) =>{
  
 
 export default Search;
-
-/*(event: React.FormEvent<HTMLDivElement>,option?: IDropdownOption, index?: number)=>{setComboTextContent(option?.text!)
-                                    console.log(comboTextContent)} */

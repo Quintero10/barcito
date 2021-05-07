@@ -30,18 +30,10 @@ export const ModalBasicExample: React.FunctionComponent = () => {
   
   const {elementosModal,setOpenModal,ModalIsOpen,loading}=React.useContext(ModalContext);
   
-  
- 
-
-  // Use useId() to ensure that the IDs are unique on the page.
-  // (It's also okay to use plain strings and manually ensure uniqueness.)
   const titleId = useId('title');
   return (
     <div>
-     
- 
-      
-      
+        
       <Modal
         titleAriaId={titleId}
         isOpen={elementosModal!=undefined && ModalIsOpen}
